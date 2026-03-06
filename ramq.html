@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Azure Health Auditor — Maxime Gagné</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f7f5f2; --surface: #ffffff; --border: #e2ddd8;
+      --text: #1a1714; --muted: #7a756e; --accent: #2d5a3d;
+      --accent-lt: #eaf2ec; --tag-bg: #f0ece7;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; }
+    nav { max-width: 860px; margin: 0 auto; padding: 28px 32px; display: flex; align-items: center; gap: 8px; }
+    nav a { font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+    nav a:hover { border-color: var(--accent); }
+    nav .sep { color: var(--border); font-size: 13px; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 16px 32px 56px; opacity: 0; transform: translateY(16px); animation: rise 0.6s ease forwards; }
+    .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; line-height: 1.15; margin-bottom: 16px; }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc { font-size: 1rem; color: var(--muted); max-width: 580px; margin-bottom: 24px; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag { background: var(--tag-bg); color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 20px; }
+    .divider { max-width: 860px; margin: 0 auto; padding: 0 32px; border-top: 1px solid var(--border); }
+    .content { max-width: 860px; margin: 0 auto; padding: 56px 32px 40px; display: flex; flex-direction: column; gap: 56px; }
+    .section-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 28px; }
+    .highlights { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .highlight-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px 26px; transition: border-color 0.2s, box-shadow 0.2s; }
+    .highlight-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(45,90,61,0.07); }
+    .highlight-icon { font-size: 1.4rem; margin-bottom: 12px; display: block; }
+    .highlight-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+    .highlight-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+    .pipeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .pipeline-step { background: var(--surface); padding: 20px 28px; display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
+    .step-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); opacity: 0.5; padding-top: 2px; }
+    .step-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
+    .step-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+    .tech-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+    .tech-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+    .tech-value { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--text); line-height: 1.3; }
+    .diagram-box { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .diagram-box img { width: 100%; height: auto; display: block; }
+    .diagram-caption { padding: 14px 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+    .cta-section { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 40px 0 64px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #1e3e2a; }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--accent); font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: var(--accent); }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 600px) {
+      nav, .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .pipeline-step { grid-template-columns: 32px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">← Portfolio</a>
+    <span class="sep">/</span>
+    <span style="font-size:13px; color:var(--muted);">Azure Health Auditor</span>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">Cloud / Azure — Python · OCR · Healthcare AI</p>
+    <h1>Azure Health Auditor<br /><em>Handwritten notes to billing data, automatically.</em></h1>
+    <p class="hero-desc">
+      A cloud pipeline built on Microsoft Azure that reads handwritten clinical notes,
+      extracts the medical acts performed, matches them to official RAMQ billing codes,
+      audits them for clinical consistency, and generates a structured billing report —
+      all without manual data entry.
+    </p>
+    <div class="tag-row">
+      <span class="tag">Azure</span>
+      <span class="tag">OCR</span>
+      <span class="tag">GPT-4o Vision</span>
+      <span class="tag">Healthcare</span>
+      <span class="tag">RAMQ</span>
+      <span class="tag">Pydantic</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Docker</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="content">
+
+    <section>
+      <p class="section-label">What it does</p>
+      <div class="highlights">
+        <div class="highlight-card">
+          <span class="highlight-icon">📄</span>
+          <p class="highlight-title">Reads handwritten PDFs</p>
+          <p class="highlight-desc">Azure Document Intelligence scans each word and assigns a confidence score. Low-confidence words are re-analyzed visually by GPT-4o — no manual transcription needed.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🏥</span>
+          <p class="highlight-title">Extracts medical acts</p>
+          <p class="highlight-desc">A specialized medical NLP service identifies every clinical element — procedures, medications, measurements, symptoms — and verifies nothing was invented or omitted.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">💰</span>
+          <p class="highlight-title">Matches billing codes</p>
+          <p class="highlight-desc">Each act is matched to its official RAMQ tariff code using vector similarity search. An automatic fallback activates if the primary engine is unavailable.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🛡️</span>
+          <p class="highlight-title">Audits for clinical logic</p>
+          <p class="highlight-desc">An AI auditor cross-checks each billed act against the full clinical context of the patient file. Billing an analgesic for a patient with zero pain, for example, is flagged as an anomaly.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">📊</span>
+          <p class="highlight-title">Generates billing reports</p>
+          <p class="highlight-desc">Validated acts are exported as structured JSON and CSV with the total billable amount — only acts that passed the audit are included.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🖥️</span>
+          <p class="highlight-title">Manager dashboard</p>
+          <p class="highlight-desc">A Streamlit interface lets clinic managers approve clean dossiers in one click or manually correct flagged billing codes before archiving.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">The 5-step pipeline</p>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <span class="step-num">01</span>
+          <div>
+            <p class="step-title">OCR Reading</p>
+            <p class="step-desc">The PDF is sent to Azure Document Intelligence. Each word receives a confidence score — words below the threshold are sent to GPT-4o Vision for visual correction. The pipeline stops entirely if too many critical words are unreadable.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-num">02</span>
+          <div>
+            <p class="step-title">Medical Extraction</p>
+            <p class="step-desc">Azure Text Analytics for Health identifies all clinical entities. The system then verifies mathematically that the LLM produced exactly what the medical service found — no hallucinations, no omissions.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-num">03</span>
+          <div>
+            <p class="step-title">RAMQ Code Matching</p>
+            <p class="step-desc">Each act is compared to the official RAMQ tariff database using optimized vector search (NumPy dot product with L2-normalized OpenAI embeddings). A secondary LLM fallback ensures no act goes unmatched.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-num">04</span>
+          <div>
+            <p class="step-title">Consistency Audit</p>
+            <p class="step-desc">An LLM playing the role of medical auditor verifies that each billed act is clinically justified within the full context of the patient file. Anomalies are flagged for human review rather than silently passed.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-num">05</span>
+          <div>
+            <p class="step-title">Billing Report</p>
+            <p class="step-desc">Validated acts are consolidated into a structured JSON file and a CSV export, with the total billable amount calculated. The manager dashboard allows one-click approval or granular correction.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">System architecture</p>
+      <div class="diagram-box">
+        <img
+          src="https://raw.githubusercontent.com/Maxime-Gagne/Azure_Auditeur_Sante/main/docs/schema.png"
+          alt="Azure Health Auditor pipeline architecture"
+        />
+        <p class="diagram-caption">End-to-end pipeline — from PDF upload to validated billing report.</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Technology stack</p>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <p class="tech-label">OCR</p>
+          <p class="tech-value">Azure Document Intelligence</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Visual Correction</p>
+          <p class="tech-value">GPT-4o Vision</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Medical NLP</p>
+          <p class="tech-value">Azure Text Analytics for Health</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Code Matching</p>
+          <p class="tech-value">Vector Search — NumPy + OpenAI</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Data Validation</p>
+          <p class="tech-value">Pydantic V2</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Interface</p>
+          <p class="tech-value">Streamlit</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">Deployment</p>
+          <p class="tech-value">Docker · Azure Container Apps</p>
+        </div>
+        <div class="tech-item">
+          <p class="tech-label">CI / CD</p>
+          <p class="tech-value">GitHub Actions · Ruff · MyPy</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-section">
+      <a class="btn-primary" href="https://github.com/Maxime-Gagne/Azure_Auditeur_Sante" target="_blank">View repository on GitHub ↗</a>
+      <a class="btn-secondary" href="index.html">← Back to portfolio</a>
+    </div>
+
+  </div>
+</body>
+</html>

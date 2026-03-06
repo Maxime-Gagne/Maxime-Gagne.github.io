@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecondMind — Maxime Gagné</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f7f5f2;
+      --surface:   #ffffff;
+      --border:    #e2ddd8;
+      --text:      #1a1714;
+      --muted:     #7a756e;
+      --accent:    #2d5a3d;
+      --accent-lt: #eaf2ec;
+      --tag-bg:    #f0ece7;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    nav a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    nav a:hover { border-color: var(--accent); }
+    nav .sep { color: var(--border); font-size: 13px; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 16px 32px 56px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.6s ease forwards;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 580px;
+      margin-bottom: 24px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── CONTENT ── */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 32px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    /* ── SECTION ── */
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+
+    /* ── HIGHLIGHT CARDS ── */
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .highlight-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 26px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .highlight-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(45,90,61,0.07);
+    }
+
+    .highlight-icon {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .highlight-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .highlight-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PRINCIPLES ── */
+    .principles {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .principle-row {
+      background: var(--surface);
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      align-items: baseline;
+    }
+
+    .principle-key {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .principle-val {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── HARDWARE GRID ── */
+    .hw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .hw-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .hw-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .hw-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    /* ── DIAGRAM PLACEHOLDER ── */
+    .diagram-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .diagram-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .diagram-caption {
+      padding: 14px 20px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 40px 0 64px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #1e3e2a; }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav, .hero, .content { padding-left: 20px; padding-right: 20px; }
+      .principle-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">← Portfolio</a>
+    <span class="sep">/</span>
+    <span style="font-size:13px; color:var(--muted);">SecondMind</span>
+  </nav>
+
+  <section class="hero">
+    <p class="eyebrow">Local Agentic System — Python</p>
+    <h1>SecondMind<br /><em>An AI that runs on your own machine.</em></h1>
+    <p class="hero-desc">
+      Built from scratch over 6 months with no prior coding experience — a fully local, self-governing
+      AI system made of 9 specialized agents that collaborate, remember, audit themselves, and improve over time.
+      No cloud. No subscriptions. No data leaving your computer.
+    </p>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">Multi-Agent</span>
+      <span class="tag">RAG</span>
+      <span class="tag">Local LLM</span>
+      <span class="tag">Metaprogramming</span>
+      <span class="tag">AST Audit</span>
+      <span class="tag">RTX 3090</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <div class="content">
+
+    <!-- WHAT IT DOES -->
+    <section>
+      <p class="section-label">What was built</p>
+      <div class="highlights">
+
+        <div class="highlight-card">
+          <span class="highlight-icon">🤖</span>
+          <p class="highlight-title">Multi-Agent Architecture</p>
+          <p class="highlight-desc">9 specialized agents with unique, isolated roles — each one replaceable without breaking the system. One central orchestrator coordinates them all.</p>
+        </div>
+
+        <div class="highlight-card">
+          <span class="highlight-icon">🧠</span>
+          <p class="highlight-title">Persistent Memory</p>
+          <p class="highlight-desc">The system remembers past conversations, consolidates them over time, and retrieves the most relevant context automatically — no manual input required.</p>
+        </div>
+
+        <div class="highlight-card">
+          <span class="highlight-icon">🔍</span>
+          <p class="highlight-title">Hybrid RAG Pipeline</p>
+          <p class="highlight-desc">Combines text search, vector search, and code dependency analysis to give the AI precise, hallucination-resistant answers from its own knowledge base.</p>
+        </div>
+
+        <div class="highlight-card">
+          <span class="highlight-icon">🛡️</span>
+          <p class="highlight-title">Self-Auditing Code</p>
+          <p class="highlight-desc">A dedicated agent continuously scans the codebase using static analysis (AST) to catch contract violations and data integrity issues in real time.</p>
+        </div>
+
+        <div class="highlight-card">
+          <span class="highlight-icon">⚙️</span>
+          <p class="highlight-title">Zero-Boilerplate Infrastructure</p>
+          <p class="highlight-desc">Metaprogramming automatically injects logging, monitoring, and statistics into every agent at creation — no repetitive setup code.</p>
+        </div>
+
+        <div class="highlight-card">
+          <span class="highlight-icon">👁️</span>
+          <p class="highlight-title">Real-Time Observability</p>
+          <p class="highlight-desc">A live dashboard (Prompt Viewer) shows exactly what context the AI receives before generating each response — essential for debugging complex pipelines.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ARCHITECTURAL PRINCIPLES -->
+    <section>
+      <p class="section-label">Architectural principles</p>
+      <div class="principles">
+        <div class="principle-row">
+          <span class="principle-key">Hub & Spoke Design</span>
+          <span class="principle-val">One central orchestrator with loose coupling — agents can be swapped or extended without touching the rest of the system.</span>
+        </div>
+        <div class="principle-row">
+          <span class="principle-key">Strict Contracts</span>
+          <span class="principle-val">All inter-agent communication uses typed data structures. If an agent sends the wrong format, the system blocks it immediately.</span>
+        </div>
+        <div class="principle-row">
+          <span class="principle-key">Fail-Fast & Resilient</span>
+          <span class="principle-val">Errors surface immediately rather than propagating silently — the system detects, logs, and handles failures in real time.</span>
+        </div>
+        <div class="principle-row">
+          <span class="principle-key">Security by Design</span>
+          <span class="principle-val">Continuous static audit enforces compliance at runtime. No agent can bypass the governance layer.</span>
+        </div>
+        <div class="principle-row">
+          <span class="principle-key">Single Source of Truth</span>
+          <span class="principle-val">One authoritative configuration and path registry shared across all agents — no hardcoded values, no inconsistencies.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIPELINE DIAGRAM -->
+    <section>
+      <p class="section-label">Cognitive pipeline</p>
+      <p style="font-size:0.92rem; color:var(--muted); max-width:580px; margin-bottom:20px;">
+        From a user message to a validated, memory-backed response — every step is audited,
+        scored for relevance, and logged before the AI generates a single word.
+      </p>
+      <div class="diagram-box">
+        <img
+          src="https://raw.githubusercontent.com/Maxime-Gagne/SecondMind_portfolio_FR/main/Images/diagramme.drawio.png"
+          alt="SecondMind cognitive data pipeline diagram"
+          onerror="this.parentElement.style.display='none'; document.getElementById('diagram-fallback').style.display='block';"
+        />
+        <p class="diagram-caption">Data pipeline — from user input to memory-backed LLM response.</p>
+      </div>
+      <div id="diagram-fallback" style="display:none; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:40px; text-align:center; color:var(--muted); font-size:0.9rem;">
+        📊 Pipeline diagram — available in the GitHub repository.
+      </div>
+    </section>
+
+    <!-- HARDWARE -->
+    <section>
+      <p class="section-label">Hardware & performance</p>
+      <p style="font-size:0.92rem; color:var(--muted); max-width:580px; margin-bottom:20px;">
+        The entire system runs on consumer hardware. Optimized to handle a 130,000-token context window
+        — roughly 200 pages of text — on a single GPU without running out of memory.
+      </p>
+      <div class="hw-grid">
+        <div class="hw-item">
+          <p class="hw-label">Context Window</p>
+          <p class="hw-value">130,000 tokens</p>
+        </div>
+        <div class="hw-item">
+          <p class="hw-label">Main Model</p>
+          <p class="hw-value">Qwen 2.5 — 14B</p>
+        </div>
+        <div class="hw-item">
+          <p class="hw-label">Judge Model</p>
+          <p class="hw-value">Phi-3 Mini — 3B</p>
+        </div>
+        <div class="hw-item">
+          <p class="hw-label">Intent Router</p>
+          <p class="hw-value">SBERT (~10ms)</p>
+        </div>
+        <div class="hw-item">
+          <p class="hw-label">GPU</p>
+          <p class="hw-value">RTX 3090 — 24 GB</p>
+        </div>
+        <div class="hw-item">
+          <p class="hw-label">Cache Optimization</p>
+          <p class="hw-value">Q4 / Q8 KV Cache</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- APP SCREENSHOT -->
+    <section>
+      <p class="section-label">Interface</p>
+      <div class="diagram-box">
+        <img
+          src="https://raw.githubusercontent.com/Maxime-Gagne/SecondMind_portfolio_FR/main/Images/interface_de_chat.png"
+          alt="SecondMind chat interface screenshot"
+          onerror="this.parentElement.style.display='none'; document.getElementById('screenshot-fallback').style.display='block';"
+        />
+        <p class="diagram-caption">Chat interface — context slots, live token counter, and reflexive feedback controls.</p>
+      </div>
+      <div id="screenshot-fallback" style="display:none; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:40px; text-align:center; color:var(--muted); font-size:0.9rem;">
+        🖥️ Interface screenshot — available in the GitHub repository.
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <a class="btn-primary" href="https://github.com/Maxime-Gagne/SecondMind_portfolio_FR" target="_blank">
+        View full repository on GitHub ↗
+      </a>
+      <a class="btn-secondary" href="index.html">← Back to portfolio</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

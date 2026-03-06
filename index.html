@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maxime Gagné — AI Developer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f7f5f2;
+      --surface:   #ffffff;
+      --border:    #e2ddd8;
+      --text:      #1a1714;
+      --muted:     #7a756e;
+      --accent:    #2d5a3d;
+      --accent-lt: #eaf2ec;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 80px 32px 64px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: rise 0.6s ease forwards;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .tagline {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 10px;
+    }
+
+    .intro-note {
+      font-size: 0.88rem;
+      color: var(--muted);
+      max-width: 480px;
+      border-left: 2px solid var(--border);
+      padding-left: 14px;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .contact-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .contact-row a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .contact-row a:hover { border-color: var(--accent); }
+
+    .divider {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 32px 96px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px 40px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .project-card.visible {
+      animation: rise 0.5s ease forwards;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(45, 90, 61, 0.08);
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .card-type {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+
+    .card-cta {
+      margin-top: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-lt);
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .project-card:hover .card-cta { background: #d4e8da; }
+
+    .card-arrow-right {
+      font-size: 1.4rem;
+      color: var(--border);
+      transition: color 0.2s, transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .project-card:hover .card-arrow-right {
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px 48px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header, main, footer { padding-left: 20px; padding-right: 20px; }
+      .project-card { padding: 28px 24px; flex-direction: column; }
+      .card-arrow-right { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="eyebrow">AI Developer — Montréal</p>
+    <h1>Maxime Gagné<br /><em>Building AI systems that think.</em></h1>
+    <p class="tagline">
+      Self-taught developer specializing in multi-agent architectures, local LLM systems, and AI-powered automation.
+    </p>
+    <p class="intro-note">
+      Each project below is a working system — not a demo or a tutorial follow-along.
+      Click a project to learn what it does, then visit the GitHub repository for the full technical details.
+    </p>
+    <div class="contact-row">
+      <a href="https://www.linkedin.com/in/maxime-gagné-6b14541b9/" target="_blank">LinkedIn ↗</a>
+      <a href="mailto:maximegagne.ai@gmail.com">maximegagne.ai@gmail.com</a>
+      <a href="https://github.com/Maxime-Gagne" target="_blank">GitHub ↗</a>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <main>
+    <p class="section-label">Projects</p>
+    <div class="projects">
+
+      <a class="project-card" href="secondmind.html">
+        <div>
+          <span class="card-icon">🧠</span>
+          <p class="card-type">Local Agentic System</p>
+          <h2 class="card-title">SecondMind</h2>
+          <p class="card-desc">
+            An AI assistant that runs entirely on my own computer — no cloud, no subscriptions.
+            9 specialized AI agents collaborate to understand context, remember past conversations,
+            audit their own code, and improve over time.
+          </p>
+          <span class="card-cta">See this project →</span>
+        </div>
+        <span class="card-arrow-right">→</span>
+      </a>
+
+      <a class="project-card" href="workflow-agent.html">
+        <div>
+          <span class="card-icon">⚙️</span>
+          <p class="card-type">SaaS Concept</p>
+          <h2 class="card-title">AI Workflow Discovery Agent</h2>
+          <p class="card-desc">
+            A tool that analyzes how a business operates and identifies where AI agents could save time,
+            reduce costs, or eliminate repetitive tasks — with an estimate of the effort required to implement each opportunity.
+          </p>
+          <span class="card-cta">See this project →</span>
+        </div>
+        <span class="card-arrow-right">→</span>
+      </a>
+
+      <a class="project-card" href="ramq.html">
+        <div>
+          <span class="card-icon">☁️</span>
+          <p class="card-type">Cloud / Azure</p>
+          <h2 class="card-title">Azure Auditeur RAMQ</h2>
+          <p class="card-desc">
+            A cloud pipeline built on Microsoft Azure that reads handwritten medical notes and extracts
+            billing information automatically — designed for the Quebec healthcare system (RAMQ).
+          </p>
+          <span class="card-cta">See this project →</span>
+        </div>
+        <span class="card-arrow-right">→</span>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>© 2025 Maxime Gagné — Montréal, QC</footer>
+
+  <script>
+    const cards = document.querySelectorAll('.project-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 130);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    cards.forEach(card => observer.observe(card));
+  </script>
+
+</body>
+</html>
