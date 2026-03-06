@@ -1,2 +1,2 @@
-[Voir mon portfolio →](https://maxime-gagne.github.io)
+[Maxime Gagné portfolio →](https://maxime-gagne.github.io)
 Click here to enter my portfolio Hub 
