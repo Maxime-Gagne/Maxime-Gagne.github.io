@@ -1,3 +1,6 @@
+
+Copier
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,64 +9,124 @@
   <title>AI Workflow Discovery Agent — Maxime Gagné</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
   <style>
-    <img
-          src="https://raw.githubusercontent.com/Maxime-Gagne/AI_Workflow_Discovery_Agent/data/app_capture_1.png"
-          alt="App Interface"
-        />
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #f7f5f2; --surface: #ffffff; --border: #e2ddd8;
-      --text: #1a1714; --muted: #7a756e; --accent: #2d5a3d;
-      --accent-lt: #eaf2ec; --tag-bg: #f0ece7;
+      --bg: #f7f5f2;
+      --surface: #ffffff;
+      --surface-2: #f2efe9;
+      --border: #e2ddd8;
+      --border-strong: #ccc8c2;
+      --text: #1a1714;
+      --muted: #7a756e;
+      --accent: #2d5a3d;
+      --accent-lt: #eaf2ec;
+      --accent-mid: #c8dece;
+      --tag-bg: #f0ece7;
+      --yellow: #fdf6e3;
+      --yellow-border: #e8d9a0;
     }
-    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+    }
 
-    nav { max-width: 860px; margin: 0 auto; padding: 28px 32px; display: flex; align-items: center; gap: 8px; }
+    /* ── NAV ── */
+    nav {
+      max-width: 900px; margin: 0 auto; padding: 28px 32px;
+      display: flex; align-items: center; gap: 8px;
+    }
     nav a { font-size: 13px; font-weight: 500; color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
     nav a:hover { border-color: var(--accent); }
-    nav .sep { color: var(--border); font-size: 13px; }
+    nav .sep { color: var(--border-strong); font-size: 13px; }
 
-    .hero { max-width: 860px; margin: 0 auto; padding: 16px 32px 56px; opacity: 0; transform: translateY(16px); animation: rise 0.6s ease forwards; }
-    .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 16px; }
-    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 400; line-height: 1.15; margin-bottom: 16px; }
+    /* ── HERO ── */
+    .hero {
+      max-width: 900px; margin: 0 auto; padding: 8px 32px 52px;
+      opacity: 0; transform: translateY(18px);
+      animation: rise 0.65s ease forwards;
+    }
+    .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 18px; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.1rem); font-weight: 400; line-height: 1.12; margin-bottom: 20px; }
     h1 em { font-style: italic; color: var(--accent); }
-    .hero-desc { font-size: 1rem; color: var(--muted); max-width: 580px; margin-bottom: 24px; }
+    .hero-desc { font-size: 1.02rem; color: var(--muted); max-width: 600px; margin-bottom: 28px; line-height: 1.75; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag { background: var(--tag-bg); color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: 0.06em; padding: 4px 12px; border-radius: 20px; }
+    .tag.green { background: var(--accent-lt); color: var(--accent); }
 
-    .divider { max-width: 860px; margin: 0 auto; padding: 0 32px; border-top: 1px solid var(--border); }
-    .content { max-width: 860px; margin: 0 auto; padding: 56px 32px 40px; display: flex; flex-direction: column; gap: 56px; }
+    /* ── LAYOUT ── */
+    .divider { max-width: 900px; margin: 0 auto; padding: 0 32px; border-top: 1px solid var(--border); }
+    .content { max-width: 900px; margin: 0 auto; padding: 56px 32px 32px; display: flex; flex-direction: column; gap: 60px; }
     .section-label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 28px; }
 
+    /* ── HIGHLIGHT CARDS ── */
     .highlights { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
     .highlight-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px 26px; transition: border-color 0.2s, box-shadow 0.2s; }
     .highlight-card:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(45,90,61,0.07); }
     .highlight-icon { font-size: 1.4rem; margin-bottom: 12px; display: block; }
     .highlight-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 8px; color: var(--text); }
-    .highlight-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+    .highlight-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
 
+    /* ── ARCHITECTURE DIAGRAM ── */
+    .arch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .arch-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
+    .arch-card.full { grid-column: 1 / -1; }
+    .arch-card-label { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .arch-card-title { font-size: 0.93rem; font-weight: 500; margin-bottom: 6px; }
+    .arch-card-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+    .arch-arrow { text-align: center; color: var(--accent); font-size: 1.3rem; padding: 4px 0; opacity: 0.4; }
+
+    /* ── PIPELINE ── */
     .pipeline { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .pipeline-step { background: var(--surface); padding: 20px 28px; display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; }
-    .step-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); opacity: 0.5; padding-top: 2px; }
+    .pipeline-step { background: var(--surface); padding: 20px 28px; display: grid; grid-template-columns: 48px 1fr; gap: 16px; align-items: start; transition: background 0.15s; }
+    .pipeline-step:hover { background: var(--accent-lt); }
+    .step-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); opacity: 0.45; padding-top: 2px; }
     .step-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
-    .step-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+    .step-badge { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; background: var(--tag-bg); color: var(--muted); padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+    .step-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.65; }
 
-    .status-note { background: var(--accent-lt); border: 1px solid #c8dece; border-radius: 10px; padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start; }
-    .status-note-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    /* ── TECH STACK ── */
+    .stack-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+    .stack-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; display: flex; flex-direction: column; gap: 4px; }
+    .stack-name { font-size: 0.88rem; font-weight: 500; color: var(--text); }
+    .stack-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── METRICS ── */
+    .metrics-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .metric { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; text-align: center; }
+    .metric-value { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .metric-label { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── STATUS ── */
+    .status-note { background: var(--accent-lt); border: 1px solid var(--accent-mid); border-radius: 10px; padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start; }
+    .status-note-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 3px; }
     .status-note-text { font-size: 0.9rem; color: var(--accent); line-height: 1.65; }
 
-    .cta-section { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 40px 0 64px; }
+    /* ── CTA ── */
+    .cta-section { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 32px 0 72px; }
     .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
     .btn-primary:hover { background: #1e3e2a; }
     .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--accent); font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 8px; border: 1px solid var(--border); text-decoration: none; transition: border-color 0.2s; }
     .btn-secondary:hover { border-color: var(--accent); }
 
+    /* ── CODE BLOCK ── */
+    .code-block { background: #1a1714; border-radius: 8px; padding: 18px 22px; overflow-x: auto; }
+    .code-block code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.78rem; line-height: 1.7; color: #c9c5be; white-space: pre; }
+    .code-block .kw { color: #7ec8a4; }
+    .code-block .str { color: #e6b87d; }
+    .code-block .cm { color: #5a5550; }
+
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-    @media (max-width: 600px) {
+
+    @media (max-width: 640px) {
       nav, .hero, .content { padding-left: 20px; padding-right: 20px; }
       .pipeline-step { grid-template-columns: 32px 1fr; }
+      .arch-grid { grid-template-columns: 1fr; }
+      .arch-card.full { grid-column: 1; }
     }
   </style>
 </head>
@@ -75,21 +138,28 @@
     <span style="font-size:13px; color:var(--muted);">AI Workflow Discovery Agent</span>
   </nav>
 
+  <!-- ── HERO ── -->
   <section class="hero">
-    <p class="eyebrow">SaaS Concept — Python · LLM · Automation</p>
-    <h1>AI Workflow Discovery Agent<br /><em>Find where AI can help your business.</em></h1>
+    <p class="eyebrow">Python · Multi-Agent LLM · Process Mining · Docker</p>
+    <h1>AI Workflow Discovery Agent<br /><em>Diagnose processes. Generate automation.</em></h1>
     <p class="hero-desc">
-      A system that interviews a business about how it operates, identifies the tasks where AI agents
-      could save the most time, and produces a prioritized report with estimated productivity gains
-      and implementation complexity — before a single line of automation code is written.
+      A hybrid system that ingests raw business data — support tickets, CRM pipelines, SOPs —
+      clusters it deterministically, then passes condensed metrics to a 3-agent LLM pipeline
+      that diagnoses friction, designs an optimized workflow, and compiles a deployment-ready
+      Apache Airflow DAG. ROI is calculated mathematically before any LLM call to eliminate hallucination.
     </p>
     <div class="tag-row">
-      <span class="tag">Python</span>
-      <span class="tag">LLM</span>
-      <span class="tag">Workflow Analysis</span>
-      <span class="tag">AI Agents</span>
-      <span class="tag">Automation</span>
-      <span class="tag">SaaS</span>
+      <span class="tag green">Python 3.11</span>
+      <span class="tag green">Gemini Flash</span>
+      <span class="tag green">instructor</span>
+      <span class="tag green">Pydantic v2</span>
+      <span class="tag">HDBSCAN</span>
+      <span class="tag">sentence-transformers</span>
+      <span class="tag">Graphviz</span>
+      <span class="tag">Jinja2</span>
+      <span class="tag">Streamlit</span>
+      <span class="tag">Docker</span>
+      <span class="tag">Apache Airflow</span>
     </div>
   </section>
 
@@ -97,68 +167,244 @@
 
   <div class="content">
 
+    <!-- ── METRICS ── -->
     <section>
-      <p class="section-label">The problem it solves</p>
-      <div class="highlights">
-        <div class="highlight-card">
-          <span class="highlight-icon">🔍</span>
-          <p class="highlight-title">Most businesses don't know where to start with AI</p>
-          <p class="highlight-desc">Companies hear about automation but have no structured way to figure out which of their own processes would actually benefit — and which wouldn't be worth the effort.</p>
+      <p class="section-label">At a glance</p>
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="metric-value">3</div>
+          <div class="metric-label">Specialized LLM agents</div>
         </div>
-        <div class="highlight-card">
-          <span class="highlight-icon">📊</span>
-          <p class="highlight-title">Consultants are expensive and slow</p>
-          <p class="highlight-desc">A traditional workflow audit takes weeks and costs thousands. This system can produce an equivalent discovery report in a single session, at a fraction of the cost.</p>
+        <div class="metric">
+          <div class="metric-value">0</div>
+          <div class="metric-label">Manual JSON parsing (Pydantic contracts)</div>
         </div>
-        <div class="highlight-card">
-          <span class="highlight-icon">⚡</span>
-          <p class="highlight-title">Prioritization before implementation</p>
-          <p class="highlight-desc">Every identified opportunity is scored by estimated productivity gain and implementation complexity — so decision-makers can act on the highest-value items first.</p>
+        <div class="metric">
+          <div class="metric-value">5</div>
+          <div class="metric-label">Input formats supported</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value">AST</div>
+          <div class="metric-label">Airflow DAG validation</div>
         </div>
       </div>
     </section>
 
+    <!-- ── PROBLEM ── -->
     <section>
-      <p class="section-label">How it works</p>
+      <p class="section-label">The problem it solves</p>
+      <div class="highlights">
+        <div class="highlight-card">
+          <span class="highlight-icon">🔢</span>
+          <p class="highlight-title">LLMs hallucinate ROI numbers</p>
+          <p class="highlight-desc">Standard LLM pipelines produce ROI figures that are plausible but unverifiable. This system computes savings deterministically from cluster data before passing any numbers to the model.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🗂️</span>
+          <p class="highlight-title">Business data is never clean</p>
+          <p class="highlight-desc">Exports from Zendesk, HubSpot, Notion, and Slack have completely different shapes. A Sentinel layer (DataRefiner) normalizes every source into atomic actions before analysis.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🏗️</span>
+          <p class="highlight-title">Insight without execution is useless</p>
+          <p class="highlight-desc">The system doesn't stop at a report — it compiles the optimized workflow directly into a valid Apache Airflow DAG (.py) using Jinja2 templates and AST validation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ARCHITECTURE ── -->
+    <section>
+      <p class="section-label">System architecture</p>
+      <div class="arch-grid">
+
+        <div class="arch-card full">
+          <div class="arch-card-label">Layer 1 — Deterministic Engine</div>
+          <div class="arch-card-title">DataEngine + DataRefiner (Sentinel)</div>
+          <div class="arch-card-desc">
+            Raw exports (CSV/JSON/SOP text) are ingested and normalized into atomic actions.
+            <code style="font-size:0.8rem; background:var(--surface-2); padding:1px 6px; border-radius:4px;">all-MiniLM-L6-v2</code> vectorizes the text on CPU (384 dimensions),
+            then HDBSCAN clusters with dynamic density heuristic <code style="font-size:0.8rem; background:var(--surface-2); padding:1px 6px; border-radius:4px;">max(2, 1.5 × ln(n))</code>.
+            Only the mathematical centroids and ROI metrics are forwarded to the LLM — raw data never leaves the container.
+          </div>
+        </div>
+
+        <div class="arch-arrow" style="grid-column:1/-1;">↓</div>
+
+        <div class="arch-card">
+          <div class="arch-card-label">Layer 2A — Agent Analyst</div>
+          <div class="arch-card-title">Process Diagnosis</div>
+          <div class="arch-card-desc">Receives clustered payload + pre-computed ROI metrics. Produces a structured <code style="font-size:0.8rem;">DiagnosticAnalyste</code> Pydantic object with friction points, manual task ratio, and validated financial projections.</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-card-label">Layer 2B — Agent Mapper</div>
+          <div class="arch-card-title">Workflow Architecture</div>
+          <div class="arch-card-desc">Transforms the diagnosis into a directed acyclic graph (<code style="font-size:0.8rem;">WorkflowOptimise</code>). A deterministic post-processor classifies every original step into exactly one of: automated / human / eliminated — no ambiguity.</div>
+        </div>
+
+        <div class="arch-arrow" style="grid-column:1/-1;">↓</div>
+
+        <div class="arch-card full">
+          <div class="arch-card-label">Layer 2C — Agent Advisor</div>
+          <div class="arch-card-title">Technology Stack Selection (Single Source of Truth)</div>
+          <div class="arch-card-desc">
+            Receives the workflow graph and a curated tools catalog (15 tools). Enforces a "Single Source of Truth" architecture — eliminates database redundancy, selects one orchestration tool.
+            Returns a <code style="font-size:0.8rem;">RapportAdvisor</code> with MVP stack vs. complete stack distinction.
+          </div>
+        </div>
+
+        <div class="arch-arrow" style="grid-column:1/-1;">↓</div>
+
+        <div class="arch-card">
+          <div class="arch-card-label">Layer 3A — Visualization</div>
+          <div class="arch-card-title">SVG Workflow Diagram</div>
+          <div class="arch-card-desc">Graphviz renders the Pydantic workflow model into an interactive SVG with color-coded node types (trigger, automatic, human, decision, end).</div>
+        </div>
+
+        <div class="arch-card">
+          <div class="arch-card-label">Layer 3B — Code Generation</div>
+          <div class="arch-card-title">Airflow DAG Compiler</div>
+          <div class="arch-card-desc">Jinja2 template compiles workflow nodes into valid Python. Each <code style="font-size:0.8rem;">type_noeud</code> maps deterministically to an Airflow operator: <code style="font-size:0.8rem;">PythonOperator</code>, <code style="font-size:0.8rem;">BashOperator</code>, <code style="font-size:0.8rem;">BranchPythonOperator</code>.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── PIPELINE ── -->
+    <section>
+      <p class="section-label">User flow</p>
       <div class="pipeline">
         <div class="pipeline-step">
           <span class="step-num">01</span>
           <div>
-            <p class="step-title">Workflow Interview</p>
-            <p class="step-desc">An AI agent guides the user through a structured conversation about their business processes — what tasks exist, who does them, how long they take, and what tools are involved.</p>
+            <p class="step-title">Select or upload a data source <span class="step-badge">Sentinel</span></p>
+            <p class="step-desc">Choose from three preloaded datasets (Zendesk tickets, HubSpot recruitment pipeline, Notion/Slack marketing content) or upload a custom CSV/JSON/SOP text. The Sentinel validates and restructures unstructured sources into atomic actions automatically.</p>
           </div>
         </div>
         <div class="pipeline-step">
           <span class="step-num">02</span>
           <div>
-            <p class="step-title">Opportunity Detection</p>
-            <p class="step-desc">The system analyzes the workflow map and flags tasks that are repetitive, rule-based, data-heavy, or time-consuming — the classic candidates for AI automation.</p>
+            <p class="step-title">Configure ROI parameters <span class="step-badge">Deterministic</span></p>
+            <p class="step-desc">Set the average employer hourly rate ($/h) via sidebar slider. HDBSCAN parameters are also configurable: cluster selection epsilon and minimum cluster size (or dynamic heuristic). ROI is calculated mathematically from cluster data before any LLM is invoked.</p>
           </div>
         </div>
         <div class="pipeline-step">
           <span class="step-num">03</span>
           <div>
-            <p class="step-title">Complexity & Gain Estimation</p>
-            <p class="step-desc">Each opportunity is scored: how much time could be saved per week, how complex it would be to automate, and what type of AI agent would be required.</p>
+            <p class="step-title">Semantic clustering <span class="step-badge">HDBSCAN</span></p>
+            <p class="step-desc">Text is vectorized via <code style="font-size:0.82rem; background:var(--surface-2); padding:1px 5px; border-radius:3px;">all-MiniLM-L6-v2</code> and clustered with HDBSCAN. Noise points (cluster -1) are discarded. The 3 most representative examples per cluster are extracted by cosine distance to centroid.</p>
           </div>
         </div>
         <div class="pipeline-step">
           <span class="step-num">04</span>
           <div>
-            <p class="step-title">Prioritized Report</p>
-            <p class="step-desc">The output is a structured report ranking automation opportunities by ROI — ready to hand to a developer or use as the basis for a product roadmap.</p>
+            <p class="step-title">3-agent inference pipeline <span class="step-badge">LLM</span></p>
+            <p class="step-desc">Analyst → Mapper → Advisor chain runs sequentially via instructor + Gemini Flash. Each agent receives a Pydantic-typed input and returns a Pydantic-validated output. Inference latency and token consumption are tracked per agent.</p>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <span class="step-num">05</span>
+          <div>
+            <p class="step-title">Export results <span class="step-badge">Codegen</span></p>
+            <p class="step-desc">Download the full analysis as structured JSON, or export the optimized workflow as a deployment-ready Apache Airflow DAG (.py). The DAG code is validated via AST before download.</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ── TECHNICAL DECISIONS ── -->
+    <section>
+      <p class="section-label">Key engineering decisions</p>
+      <div class="highlights">
+        <div class="highlight-card">
+          <span class="highlight-icon">🔒</span>
+          <p class="highlight-title">Zero hallucination on financial data</p>
+          <p class="highlight-desc">ROI figures are computed by <code style="font-size:0.82rem;">DataEngine.compute_roi()</code> before any LLM call. The Analyst agent is instructed to inject these values verbatim — no recalculation permitted.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">📐</span>
+          <p class="highlight-title">Strict Pydantic contracts everywhere</p>
+          <p class="highlight-desc">All inter-agent data transfers are typed via <code style="font-size:0.82rem;">schemas.py</code>. instructor forces structured output from Gemini in GEMINI_JSON mode. No manual JSON parsing exists anywhere in the codebase.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🌲</span>
+          <p class="highlight-title">Deterministic transformation summary</p>
+          <p class="highlight-desc"><code style="font-size:0.82rem;">compute_transformation()</code> in the Mapper agent classifies each original step into exactly one list (automated / human / eliminated) using set arithmetic — not LLM inference.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">📦</span>
+          <p class="highlight-title">Production-ready containerization</p>
+          <p class="highlight-desc">Docker image runs under non-root UID 1000. ML model weights are pre-downloaded during build to eliminate cold starts. Graphviz system dependency is baked in.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">📡</span>
+          <p class="highlight-title">Built-in observability</p>
+          <p class="highlight-desc"><code style="font-size:0.82rem;">MetricsTracker</code> records per-agent latency (seconds) and token consumption (prompt / completion / total) for the full pipeline. Displayed post-run in a telemetry expander.</p>
+        </div>
+        <div class="highlight-card">
+          <span class="highlight-icon">🧪</span>
+          <p class="highlight-title">Tested architecture</p>
+          <p class="highlight-desc">38 unit tests cover Pydantic invariants, HDBSCAN pipeline, ROI math, sanitization edge cases, SVG rendering, Airflow operator mapping, and agent mocking via unittest.mock.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TECH STACK ── -->
+    <section>
+      <p class="section-label">Technology stack</p>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <span class="stack-name">Gemini Flash Lite</span>
+          <span class="stack-role">LLM backbone (3 agents)</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">instructor</span>
+          <span class="stack-role">Structured LLM output</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">Pydantic v2</span>
+          <span class="stack-role">Data contracts & validation</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">HDBSCAN</span>
+          <span class="stack-role">Density-based clustering</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">sentence-transformers</span>
+          <span class="stack-role">Text vectorization (CPU)</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">Graphviz</span>
+          <span class="stack-role">SVG workflow rendering</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">Jinja2 + AST</span>
+          <span class="stack-role">Airflow DAG generation</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">Streamlit</span>
+          <span class="stack-role">UI layer (decoupled)</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">Docker</span>
+          <span class="stack-role">Containerized deployment</span>
+        </div>
+        <div class="stack-item">
+          <span class="stack-name">pytest + mock</span>
+          <span class="stack-role">Unit test suite</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STATUS ── -->
     <section>
       <p class="section-label">Project status</p>
       <div class="status-note">
-        <span class="status-note-icon">🚧</span>
+        <span class="status-note-icon">✅</span>
         <p class="status-note-text">
-          This project is currently in active development. The repository contains the initial architecture and specification.
-          The core discovery pipeline is being built iteratively — visit the GitHub repository to follow progress.
+          <strong>Complete and deployed.</strong> The full pipeline — data ingestion, semantic clustering, 3-agent inference, SVG visualization, and Airflow DAG export — is functional and containerized.
+          The repository includes all source files, test suite, Dockerfile, and demo datasets.
+          A Google AI Studio API key is required to run the LLM pipeline.
         </p>
       </div>
     </section>
