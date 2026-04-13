@@ -290,6 +290,37 @@
         <span class="card-arrow-right">→</span>
       </a>
 
+      <section id="prompt-pad" class="project-card featured">
+    <header>
+        <div class="header-content">
+            <h3>Prompt-Pad: Logic Sampler</h3>
+            <span class="badge">LLM Architecture</span>
+        </div>
+        <p class="tagline">Local-first prompt & context orchestration engine.</p>
+    </header>
+    
+    <div class="project-body">
+        <p><strong>The Problem:</strong> Context-switching fatigue and orchestration friction when managing complex prompt logic across ChatGPT, Claude, and Gemini.</p>
+        
+        <p><strong>The Solution:</strong> A zero-telemetry injection system built on an isolated Shadow DOM, enabling seamless context delivery without compromising data privacy or host-page integrity.</p>
+        
+        <ul class="mechanics-list">
+            <li><strong>Runtime:</strong> Manifest V3 architecture using Service Workers for network delegation to bypass strict CSPs.</li>
+            <li><strong>Logic Matrix:</strong> 24-pad customizable grid with persistent systemic context variables and shift-click concatenation.</li>
+            <li><strong>Security:</strong> Structural data isolation via `chrome.storage.local`. No remote code execution or external tracking.</li>
+        </ul>
+    </div>
+
+    <footer class="project-links">
+        <a href="https://github.com/Maxime-Gagne/prompt-pad-showcase" class="btn btn-primary" target="_blank">
+            <i class="fab fa-github"></i> Technical Whitepaper
+        </a>
+        <a href="https://www.youtube.com/watch?v=zCPC1hqJ060" class="btn btn-secondary" target="_blank">
+            <i class="fas fa-play-circle"></i> Architecture Demo
+        </a>
+    </footer>
+</section>
+      
     </div>
   </main>
 
